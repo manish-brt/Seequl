@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Seequl" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Seequl" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -11,6 +11,27 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowActionBarOverlay">@null</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+<!--        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>-->
+
         <!-- Customize your theme here. -->
     </style>
+
+    //Dots Indicator
+    <style name="ScrollingPagerIndicator">
+        <item name="spi_dotColor">@android:color/darker_gray</item>
+        <item name="spi_dotSelectedColor">@android:color/darker_gray</item>
+        <item name="spi_dotSize">6dp</item>
+        <item name="spi_dotSelectedSize">10dp</item>
+        <item name="spi_dotSpacing">8dp</item>
+        <item name="spi_visibleDotCount">5</item>
+        <item name="spi_visibleDotThreshold">2</item>
+        <item name="spi_looped">false</item>
+    </style>
+
 </resources>

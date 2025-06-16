@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.app.seequl.data.model.MovieDetails" />
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="vModel"
+            type="com.app.seequl.ui.modules.details.MovieDetailsViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_dark"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/backdrop_image"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:loadImageUrl="@{item.backDropOG()}" />
+
+            <View
+                android:id="@+id/gradient_overlay"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_gradient_overlay"
+                app:layout_constraintBottom_toBottomOf="@id/backdrop_image"
+                app:layout_constraintEnd_toEndOf="@id/backdrop_image"
+                app:layout_constraintStart_toStartOf="@id/backdrop_image"
+                app:layout_constraintTop_toTopOf="@id/backdrop_image" />
+
+            <!-- Back Button -->
+            <ImageButton
+                android:id="@+id/back_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="48dp"
+                android:background="@drawable/circle_background_translucent"
+                android:contentDescription="Back"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Favorite Button -->
+            <ImageButton
+                android:id="@+id/share_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="48dp"
+                android:background="@drawable/circle_background_translucent"
+                android:contentDescription="Share"
+                android:src="@drawable/ic_share_white"
+                app:layout_constraintEnd_toStartOf="@+id/favorite_btn"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/favorite_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="48dp"
+                android:background="@drawable/circle_background_translucent"
+                android:contentDescription="Add to favorites"
+                android:src="@{vModel.isBookmarked ? @drawable/ic_favorite_filled : @drawable/ic_favorite_border}"
+                tools:src="@drawable/ic_favorite_filled"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Movie Poster -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/poster_card"
+                android:layout_width="120dp"
+                android:layout_height="180dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="200dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/poster_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:loadImageUrl="@{item.posterOG()}" />
+
+                <!--            android:src="@drawable/scarface_poster"-->
+            </androidx.cardview.widget.CardView>
+
+            <!-- Movie Title -->
+            <TextView
+                android:id="@+id/movie_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:maxLines="2"
+                android:text="@{item.title}"
+                android:textColor="@color/text_primary"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/poster_card"
+                app:layout_constraintTop_toTopOf="@id/poster_card"
+                tools:text="Scarface" />
+
+            <!-- Tagline -->
+            <TextView
+                android:id="@+id/tagline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:maxLines="3"
+                android:text="@{item.tagline}"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@id/movie_title"
+                app:layout_constraintStart_toStartOf="@id/movie_title"
+                app:layout_constraintTop_toBottomOf="@id/movie_title"
+                tools:text="He loved the American Dream. With a vengeance." />
+
+            <!-- Rating and Year Container -->
+            <LinearLayout
+                android:id="@+id/rating_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/movie_title"
+                app:layout_constraintStart_toStartOf="@id/movie_title"
+                app:layout_constraintTop_toBottomOf="@id/tagline">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_star"
+                    app:tint="@color/accent_color" />
+
+                <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@{item.rating()}"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    tools:text="9.0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@{`(` + item.voteCount + ` votes)`}"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    tools:text="(11,111)" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/white" />
+
+                <TextView
+                    android:id="@+id/release_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.year()}"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    tools:text="1983" />
+
+            </LinearLayout>
+
+            <!-- Movie Info Container -->
+            <LinearLayout
+                android:id="@+id/movie_info_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/poster_card">
+
+                <!-- Runtime and Language -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/runtime"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/runtime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@{ (TextUtils.isEmpty(item.runtime+``) ? `-`: item.runtime )+ ` min`}"
+                            android:textColor="@color/text_primary"
+                            android:textSize="16sp"
+                            tools:text="170 min" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/language"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/language"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@{item.spokenLangs()}"
+                            android:textColor="@color/text_primary"
+                            android:textSize="16sp"
+                            tools:text="English, Spanish" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Genres -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Genres"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="20dp"
+                    android:adapter="@{vModel.genereAdapter}"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/row_item_genere" />
+
+                <!--                <com.google.android.flexbox.FlexboxLayout-->
+                <!--                    android:id="@+id/genres_container"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="8dp"-->
+                <!--                    android:layout_marginBottom="20dp"-->
+                <!--                    app:flexWrap="wrap">-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginEnd="8dp"-->
+                <!--                        android:layout_marginBottom="8dp"-->
+                <!--                        android:background="@drawable/genre_chip_background"-->
+                <!--                        android:paddingStart="12dp"-->
+                <!--                        android:paddingTop="6dp"-->
+                <!--                        android:paddingEnd="12dp"-->
+                <!--                        android:paddingBottom="6dp"-->
+                <!--                        android:text="Action"-->
+                <!--                        android:textColor="@color/accent_color"-->
+                <!--                        android:textSize="12sp" />-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginEnd="8dp"-->
+                <!--                        android:layout_marginBottom="8dp"-->
+                <!--                        android:background="@drawable/genre_chip_background"-->
+                <!--                        android:paddingStart="12dp"-->
+                <!--                        android:paddingTop="6dp"-->
+                <!--                        android:paddingEnd="12dp"-->
+                <!--                        android:paddingBottom="6dp"-->
+                <!--                        android:text="Crime"-->
+                <!--                        android:textColor="@color/accent_color"-->
+                <!--                        android:textSize="12sp" />-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginEnd="8dp"-->
+                <!--                        android:layout_marginBottom="8dp"-->
+                <!--                        android:background="@drawable/genre_chip_background"-->
+                <!--                        android:paddingStart="12dp"-->
+                <!--                        android:paddingTop="6dp"-->
+                <!--                        android:paddingEnd="12dp"-->
+                <!--                        android:paddingBottom="6dp"-->
+                <!--                        android:text="Drama"-->
+                <!--                        android:textColor="@color/accent_color"-->
+                <!--                        android:textSize="12sp" />-->
+
+                <!--                </com.google.android.flexbox.FlexboxLayout>-->
+
+                <!-- Overview Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/overview"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="20dp"
+                    android:justificationMode="inter_word"
+                    android:lineSpacingExtra="4dp"
+                    android:text="@{item.overview}"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    tools:text="After getting a green card in exchange for assassinating a Cuban government official, Tony Montana stakes a claim on the drug trade in Miami. Viciously murdering anyone who stands in his way, Tony eventually becomes the biggest drug lord in the state, controlling nearly all the cocaine that comes through Miami. But increased pressure from the police, wars with Colombian drug cartels and his own drug-fueled paranoia serve to fuel the flames of his eventual downfall." />
+
+                <!-- Production Info -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/production"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/studio"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@{item.production()}"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"
+                        tools:text="Universal Pictures" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="32dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/budget"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@{`$` + item.budgetFormat()}"
+                            android:textColor="@color/text_primary"
+                            android:textSize="16sp"
+                            tools:text="$25M" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/revenue"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@{`$` + item.revenueFormat()}"
+                            android:textColor="@color/text_primary"
+                            android:textSize="16sp"
+                            tools:text="$66M" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Action Buttons -->
+            <LinearLayout
+                android:id="@+id/action_buttons"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="32dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_info_container">
+
+                <Button
+                    android:id="@+id/play_button"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/primary_button_background"
+                    android:drawableStart="@drawable/ic_play"
+                    android:drawablePadding="8dp"
+                    android:text="@string/play"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_on_primary"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/trailer_button"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/secondary_button_background"
+                    android:drawableStart="@drawable/ic_play_outline"
+                    android:drawablePadding="8dp"
+                    android:text="@string/trailer"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>

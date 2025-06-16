@@ -1,6 +1,33 @@
 <resources>
     <string name="app_name">Seequl</string>
+    <string name="app_name_camelcase">SeeQul</string>
+    <string name="preference_name" translatable="false">seequl</string>
+    <string name="database_name" translatable="false">seequl</string>
+
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_search">Search</string>
+    <string name="title_profile">Profile</string>
+
+    <string name="no_internet">Please check your internet connection and try again!</string>
+    <string name="no_data">No data available</string>
+    <string name="now_showing">Now Showing 🕘</string>
+    <string name="fetch">Fetch</string>
+    <string name="top_rated">Top Rated ✦</string>
+    <string name="runtime">Runtime</string>
+    <string name="language">Language</string>
+    <string name="overview">Overview</string>
+    <string name="production">Production</string>
+    <string name="studio">Studio</string>
+    <string name="budget">Budget</string>
+    <string name="revenue">Revenue</string>
+    <string name="trailer">Trailer</string>
+    <string name="play">Play</string>
+    <string name="search_by">Search By</string>
+    <string name="movie_name">Movie Name</string>
+    <string name="genere">Genere</string>
+    <string name="actors">Actors</string>
+    <string name="try_searching_for_other_keywords">Try Searching for other keywords...</string>
+    <string name="no_movies_found">No movies found</string>
+    <string name="bookmark">Bookmark</string>
+
 </resources>
