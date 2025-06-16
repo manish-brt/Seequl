@@ -12,6 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
+
         <item name="windowActionBar">false</item>
         <item name="windowActionBarOverlay">@null</item>
         <item name="windowNoTitle">true</item>

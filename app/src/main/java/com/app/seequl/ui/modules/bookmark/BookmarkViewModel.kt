@@ -17,13 +17,14 @@ class BookmarkViewModel @Inject constructor(
     private val bookmarkDao: BookmarkDao
 ) : BaseViewModel(appHelper) {
 
-//    private val _bookmarkedMovies = MutableLiveData<List<MovieDTO>>() // Or use StateFlow
-//    val bookmarkedMovies: LiveData<List<MovieDTO>> = _bookmarkedMovies
-
-    private val _openDetails = MutableLiveData<BookmarkEntity>()
-    val openDetails: LiveData<BookmarkEntity> = _openDetails
-
     val bookmarkedMovies: LiveData<List<BookmarkEntity>> = bookmarkDao.getAllBookmarks()
+
+    private val _noData: MutableLiveData<Boolean> = MutableLiveData(false)
+    val noData: LiveData<Boolean> = _noData
+
+    fun noDataAvailable(bool: Boolean) {
+        _noData.value = bool
+    }
 
     fun deleteBookmark(dto: BookmarkEntity) {
         launch {

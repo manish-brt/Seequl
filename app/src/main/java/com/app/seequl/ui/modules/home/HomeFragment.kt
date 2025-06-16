@@ -69,8 +69,10 @@ class HomeFragment : Fragment() {
         }
 
         mViewModel.openDetails.observe(viewLifecycleOwner) { it ->
-            if (it != null)
+            if (it != null) {
                 launchDetailsScreen(it)
+                mViewModel.resetDetailsData()
+            }
         }
 
 //        mViewModel.text.observe(viewLifecycleOwner) {

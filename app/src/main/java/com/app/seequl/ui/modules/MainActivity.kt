@@ -5,6 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.app.seequl.R
@@ -27,9 +30,23 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+//            val bars = insets.getInsets(
+//                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+//            )
+//            v.updatePadding(
+//                left = bars.left,
+//                top = bars.top,
+//                right = bars.right,
+//                bottom = bars.bottom
+//            )
+//            WindowInsetsCompat.CONSUMED
+//        }
+
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 //        val appBarConfiguration = AppBarConfiguration(
@@ -45,14 +62,6 @@ class MainActivity : AppCompatActivity() {
         intent.data?.let { handleDeeplink(it) }
 
     }
-
-//    override fun onNewIntent(intent: Intent, caller: ComponentCaller) {
-//        super.onNewIntent(intent, caller)
-//
-//        findNavController(R.id.nav_host_fragment_activity_main).handleDeepLink(intent)
-//
-//        intent?.data?.let { handleDeeplink(it) }
-//    }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)

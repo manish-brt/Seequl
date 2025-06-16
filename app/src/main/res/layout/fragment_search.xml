@@ -122,10 +122,10 @@
                 android:id="@+id/iv_clear_search"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:layout_marginEnd="8dp"
                 android:onClick="@{() -> vModel.clearSearchStrClick()}"
                 android:padding="6dp"
                 android:src="@drawable/ic_close"
-                android:layout_marginEnd="8dp"
                 android:visibility="@{TextUtils.isEmpty(vModel.searchStr) ? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/et_search"
@@ -137,31 +137,65 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:adapter="@{vModel.searchAdapter}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_search"
             tools:itemCount="10"
+            android:visibility="@{TextUtils.isEmpty(vModel.searchStr) ? View.GONE: View.VISIBLE}"
             tools:listitem="@layout/row_item_search_movie"
-            android:adapter="@{vModel.searchAdapter}"
-            tools:visibility="visible" />
-
+            tools:visibility="gone" />
 
         <!-- Empty State -->
         <LinearLayout
-            android:id="@+id/emptyStateLayout"
+            android:id="@+id/empty_state"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="32dp"
-            tools:visibility="gone"
+            android:visibility="@{TextUtils.isEmpty(vModel.searchStr) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_search"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:alpha="0.6"
+                android:src="@drawable/ic_search_illustration" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:text="Search for any movie by name, release year, actors..."
+                android:textColor="@color/text_primary_black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Empty State -->
+        <LinearLayout
+            android:id="@+id/no_data_state"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="32dp"
             android:visibility="@{vModel.noData ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_search">
+            app:layout_constraintTop_toBottomOf="@+id/cl_search"
+            tools:visibility="gone">
 
             <ImageView
                 android:layout_width="120dp"

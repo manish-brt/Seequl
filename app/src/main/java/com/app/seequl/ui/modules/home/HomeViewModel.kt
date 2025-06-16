@@ -2,7 +2,6 @@ package com.app.seequl.ui.modules.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.app.seequl.data.database.dao.MovieDao
 import com.app.seequl.data.model.MovieDTO
 import com.app.seequl.data.repository.MovieRepo
@@ -55,6 +54,9 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun resetDetailsData() {
+        _openDetails.value = null
+    }
 
     fun checkAllDone() {
         _allDataLoaded.value =
@@ -76,7 +78,6 @@ class HomeViewModel @Inject constructor(
             }
 
             _trendingDataLoaded.value = true
-
         }
     }
 
@@ -95,9 +96,7 @@ class HomeViewModel @Inject constructor(
             }
 
             _nowShowingDataLoaded.value = true
-
         }
-
     }
 
     fun fetchTopRatedMovies() {
@@ -115,8 +114,6 @@ class HomeViewModel @Inject constructor(
             }
 
             _topRatedDataLoaded.value = true
-
         }
-
     }
 }

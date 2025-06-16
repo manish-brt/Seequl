@@ -47,23 +47,24 @@ class BookmarkFragment : Fragment() {
     }
 
     private fun initObservers() {
-        mViewModel.openDetails.observe(viewLifecycleOwner) { it ->
-            if (it != null) {
-                requireContext().launchActivity<MovieDetailsActivity> {
-                    putExtra(EXTRA_MOVIE_ID, it.id)
-                }
+        adapter.addListener {
+            requireContext().launchActivity<MovieDetailsActivity> {
+                putExtra(EXTRA_MOVIE_ID, it.id)
             }
         }
-
-        adapter
 
         adapter.addDeleteListener {
             mViewModel.deleteBookmark(it)
         }
 
         mViewModel.bookmarkedMovies.observe(viewLifecycleOwner) { bookmarks ->
-            if (bookmarks != null)
+            if (bookmarks != null) {
+                mViewModel.noDataAvailable(bookmarks.isEmpty())
+
                 adapter.setItems(bookmarks)
+            } else {
+                mViewModel.noDataAvailable(true)
+            }
         }
     }
 

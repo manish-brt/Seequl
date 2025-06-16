@@ -29,5 +29,6 @@
     <string name="try_searching_for_other_keywords">Try Searching for other keywords...</string>
     <string name="no_movies_found">No movies found</string>
     <string name="bookmark">Bookmark</string>
+    <string name="you_will_find_your_bookmarks_here">You will find your bookmarks here</string>
 
 </resources>
